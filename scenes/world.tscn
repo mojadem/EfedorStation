@@ -1,12 +1,14 @@
-[gd_scene load_steps=14 format=3 uid="uid://8ti4g1qyjvp2"]
+[gd_scene load_steps=16 format=3 uid="uid://8ti4g1qyjvp2"]
 
 [ext_resource type="Texture2D" uid="uid://c4psokbf4qrfg" path="res://textures/sky.png" id="1_7qs1k"]
 [ext_resource type="PackedScene" uid="uid://dj80mqwq7v54j" path="res://scenes/player.tscn" id="1_a57ev"]
 [ext_resource type="Texture2D" uid="uid://cqerxq172mqs3" path="res://textures/ground.png" id="2_ufgbi"]
 [ext_resource type="Texture2D" uid="uid://digvehvcfgep" path="res://textures/ground_n.png" id="3_iat2a"]
-[ext_resource type="MeshLibrary" uid="uid://c4e6ysmxpimx7" path="res://resources/tree_mesh.tres" id="5_7n8yi"]
+[ext_resource type="MeshLibrary" uid="uid://dch32ipnlxsv5" path="res://resources/tree_mesh.tres" id="5_7n8yi"]
 [ext_resource type="PackedScene" uid="uid://bmyqt23ec5ko7" path="res://scenes/campfire.tscn" id="6_a3pbl"]
 [ext_resource type="MeshLibrary" uid="uid://dacqsqeusu22a" path="res://resources/foliage_mesh.tres" id="6_l3d7i"]
+[ext_resource type="PackedScene" uid="uid://cmj8u6od3x1iw" path="res://scenes/wall.tscn" id="8_maye8"]
+[ext_resource type="PackedScene" uid="uid://b4h4txrvlqhuq" path="res://scenes/axe.tscn" id="9_2geg0"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_2eun2"]
 panorama = ExtResource("1_7qs1k")
@@ -47,20 +49,12 @@ environment = SubResource("Environment_yrhlt")
 [node name="Player" parent="." instance=ExtResource("1_a57ev")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.366583, 0, 8.47793)
 
-[node name="Ground" type="MeshInstance3D" parent="."]
-mesh = SubResource("PlaneMesh_f75lj")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_4a22w")
-
 [node name="Trees" type="GridMap" parent="."]
 mesh_library = ExtResource("5_7n8yi")
 cell_size = Vector3(1, 2, 1)
 cell_center_y = false
 data = {
-"cells": PackedInt32Array(6, 8, 0, 65522, 65520, 0, 65518, 10, 0, 9, 65523, 0, 65527, 65508, 0, 65533, 65507, 0, 7, 65510, 0, 1, 65513, 0, 65531, 65514, 0, 65528, 65517, 0, 6, 65515, 0, 18, 65520, 0, 20, 65527, 0, 23, 65535, 0, 22, 6, 0, 13, 15, 0, 65533, 18, 0, 65528, 10, 0, 65524, 65532, 0, 7, 65530, 0, 65513, 65528, 0, 65504, 2, 0, 65509, 13, 0, 65514, 22, 0, 65527, 24, 0, 1, 25, 0, 12, 24, 0, 21, 22, 0, 25, 13, 0, 33, 4, 0, 34, 65529, 0, 32, 65521, 0, 33, 65513, 0, 17, 65502, 0, 2, 65494, 0, 65513, 65500, 0, 65510, 65514, 0, 65496, 65517, 0, 65499, 65525, 0, 65493, 65528, 0, 65495, 1, 0, 65496, 10, 0, 65499, 18, 0, 65506, 24, 0, 65503, 29, 0, 65493, 25, 0, 65515, 36, 0, 65518, 30, 0, 65526, 36, 0, 65530, 33, 0, 0, 37, 0, 9, 35, 0, 14, 39, 0, 22, 32, 0, 30, 39, 0, 36, 29, 0, 27, 26, 0, 36, 18, 0, 37, 11, 0, 45, 1, 0, 18, 65511, 0, 29, 65504, 0, 45, 65511, 0, 44, 65522, 0, 42, 65499, 0, 33, 65494, 0, 17, 65492, 0, 6, 65499, 0, 65526, 65494, 0, 65520, 65502, 0, 65511, 65491, 0, 65502, 65501, 0, 65511, 65507, 0, 65501, 65508, 0, 65492, 65499, 0, 65494, 39, 0, 39, 40, 0, 43, 27, 0)
+"cells": PackedInt32Array(6, 8, 0, 65522, 65520, 0, 65518, 10, 0, 9, 65523, 0, 65527, 65508, 0, 65533, 65507, 0, 7, 65510, 0, 1, 65513, 0, 65531, 65514, 0, 65528, 65517, 0, 6, 65515, 0, 18, 65520, 0, 20, 65527, 0, 23, 65535, 0, 22, 6, 0, 13, 15, 0, 65533, 18, 0, 65528, 10, 0, 65524, 65532, 0, 65513, 65528, 0, 65504, 2, 0, 65509, 13, 0, 65514, 22, 0, 65527, 24, 0, 1, 25, 0, 12, 24, 0, 21, 22, 0, 25, 13, 0, 33, 4, 0, 34, 65529, 0, 32, 65521, 0, 33, 65513, 0, 17, 65502, 0, 2, 65494, 0, 65513, 65500, 0, 65510, 65514, 0, 65496, 65517, 0, 65499, 65525, 0, 65493, 65528, 0, 65495, 1, 0, 65496, 10, 0, 65499, 18, 0, 65506, 24, 0, 65503, 29, 0, 65493, 25, 0, 65515, 36, 0, 65518, 30, 0, 65526, 36, 0, 65530, 33, 0, 0, 37, 0, 9, 35, 0, 14, 39, 0, 22, 32, 0, 30, 39, 0, 36, 29, 0, 27, 26, 0, 36, 18, 0, 37, 11, 0, 45, 1, 0, 18, 65511, 0, 29, 65504, 0, 45, 65511, 0, 44, 65522, 0, 42, 65499, 0, 33, 65494, 0, 17, 65492, 0, 6, 65499, 0, 65526, 65494, 0, 65520, 65502, 0, 65511, 65491, 0, 65502, 65501, 0, 65511, 65507, 0, 65501, 65508, 0, 65492, 65499, 0, 65494, 39, 0, 39, 40, 0, 43, 27, 0, 0, 65527, 0)
 }
 
 [node name="Foliage" type="GridMap" parent="."]
@@ -76,3 +70,31 @@ data = {
 [node name="OmniLight3D" type="OmniLight3D" parent="Campfire"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.610365, 0)
 light_color = Color(0.85098, 0.505882, 0.160784, 1)
+light_energy = 10.0
+omni_range = 20.0
+
+[node name="Ground" type="CSGMesh3D" parent="."]
+mesh = SubResource("PlaneMesh_f75lj")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_4a22w")
+
+[node name="Walls" type="CSGCombiner3D" parent="."]
+
+[node name="Wall" parent="Walls" instance=ExtResource("8_maye8")]
+
+[node name="Wall4" parent="Walls" instance=ExtResource("8_maye8")]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -50, 10, 0)
+
+[node name="Wall2" parent="Walls" instance=ExtResource("8_maye8")]
+transform = Transform3D(-1, 8.74228e-08, -3.82138e-15, 0, -4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 0, 10, 50)
+
+[node name="Wall3" parent="Walls" instance=ExtResource("8_maye8")]
+transform = Transform3D(1, -1.42109e-14, 3.81165e-21, 0, -4.37114e-08, -1, 1.42109e-14, 1, -4.37114e-08, 0, 10, -50)
+
+[node name="axe" parent="." instance=ExtResource("9_2geg0")]
+transform = Transform3D(0.537918, 0, 0.842997, 0, 1, 0, -0.842997, 0, 0.537918, 1.90545, 0, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]

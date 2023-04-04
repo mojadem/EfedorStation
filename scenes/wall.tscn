@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://cmj8u6od3x1iw"]
+
+[ext_resource type="Texture2D" uid="uid://d4bmmbd5mkrpn" path="res://textures/concrete.png" id="1_q3y4m"]
+[ext_resource type="Texture2D" uid="uid://c6p1lan63mdai" path="res://textures/concrete_n.png" id="2_1gu4c"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x0eys"]
+albedo_texture = ExtResource("1_q3y4m")
+metallic_specular = 0.0
+normal_enabled = true
+normal_texture = ExtResource("2_1gu4c")
+uv1_scale = Vector3(50, 20, 1)
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_cgfbp"]
+material = SubResource("StandardMaterial3D_x0eys")
+size = Vector2(100, 20)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_eeu8r"]
+data = PackedVector3Array(50, 0, 10, -50, 0, 10, 50, 0, -10, -50, 0, 10, -50, 0, -10, 50, 0, -10)
+
+[node name="Wall" type="CSGMesh3D"]
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 50, 10, 0)
+mesh = SubResource("PlaneMesh_cgfbp")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_eeu8r")
