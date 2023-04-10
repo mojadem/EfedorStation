@@ -1,14 +1,16 @@
-[gd_scene load_steps=16 format=3 uid="uid://8ti4g1qyjvp2"]
+[gd_scene load_steps=18 format=3 uid="uid://cha6434d5o3s7"]
 
 [ext_resource type="Texture2D" uid="uid://c4psokbf4qrfg" path="res://textures/sky.png" id="1_7qs1k"]
-[ext_resource type="PackedScene" uid="uid://dj80mqwq7v54j" path="res://scenes/player.tscn" id="1_a57ev"]
+[ext_resource type="PackedScene" uid="uid://cwiry8ohe12lk" path="res://scenes/player.tscn" id="1_a57ev"]
+[ext_resource type="Script" path="res://scripts/world.gd" id="1_oi53b"]
 [ext_resource type="Texture2D" uid="uid://cqerxq172mqs3" path="res://textures/ground.png" id="2_ufgbi"]
+[ext_resource type="PackedScene" uid="uid://bmo7ehbknl4rn" path="res://scenes/tree.tscn" id="3_4jthc"]
 [ext_resource type="Texture2D" uid="uid://digvehvcfgep" path="res://textures/ground_n.png" id="3_iat2a"]
 [ext_resource type="MeshLibrary" uid="uid://dch32ipnlxsv5" path="res://resources/tree_mesh.tres" id="5_7n8yi"]
 [ext_resource type="PackedScene" uid="uid://bmyqt23ec5ko7" path="res://scenes/campfire.tscn" id="6_a3pbl"]
 [ext_resource type="MeshLibrary" uid="uid://dacqsqeusu22a" path="res://resources/foliage_mesh.tres" id="6_l3d7i"]
 [ext_resource type="PackedScene" uid="uid://cmj8u6od3x1iw" path="res://scenes/wall.tscn" id="8_maye8"]
-[ext_resource type="PackedScene" uid="uid://b4h4txrvlqhuq" path="res://scenes/axe.tscn" id="9_2geg0"]
+[ext_resource type="PackedScene" uid="uid://8ccurguecokd" path="res://scenes/axe.tscn" id="9_2geg0"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_2eun2"]
 panorama = ExtResource("1_7qs1k")
@@ -42,14 +44,23 @@ size = Vector2(100, 100)
 data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0, -50, 50, 0, -50)
 
 [node name="World" type="Node3D"]
+script = ExtResource("1_oi53b")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_yrhlt")
 
+[node name="SpawnedItems" type="Node3D" parent="."]
+
+[node name="Trees" type="Node3D" parent="."]
+
+[node name="Tree" parent="Trees" instance=ExtResource("3_4jthc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9)
+
 [node name="Player" parent="." instance=ExtResource("1_a57ev")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.366583, 0, 8.47793)
 
-[node name="Trees" type="GridMap" parent="."]
+[node name="TreeMeshes" type="GridMap" parent="."]
+visible = false
 mesh_library = ExtResource("5_7n8yi")
 cell_size = Vector3(1, 2, 1)
 cell_center_y = false
@@ -96,5 +107,3 @@ transform = Transform3D(1, -1.42109e-14, 3.81165e-21, 0, -4.37114e-08, -1, 1.421
 
 [node name="axe" parent="." instance=ExtResource("9_2geg0")]
 transform = Transform3D(0.537918, 0, 0.842997, 0, 1, 0, -0.842997, 0, 0.537918, 1.90545, 0, 0)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]

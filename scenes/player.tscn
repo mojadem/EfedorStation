@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dj80mqwq7v54j"]
+[gd_scene load_steps=5 format=3 uid="uid://cwiry8ohe12lk"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_ipaja"]
-[ext_resource type="Script" path="res://scenes/interaction_ray.gd" id="2_2gm31"]
+[ext_resource type="Script" path="res://scripts/interaction_ray.gd" id="2_4vooa"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_qb38y"]
 
@@ -24,7 +24,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 [node name="InteractionRay" type="RayCast3D" parent="Camera3D"]
 exclude_parent = false
 target_position = Vector3(0, 0, -2.5)
-script = ExtResource("2_2gm31")
+script = ExtResource("2_4vooa")
 
 [node name="CenterContainer" type="CenterContainer" parent="Camera3D"]
 anchors_preset = 15
