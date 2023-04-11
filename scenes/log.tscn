@@ -3,9 +3,6 @@
 [ext_resource type="Script" path="res://scripts/log.gd" id="1_ascnw"]
 [ext_resource type="Texture2D" uid="uid://dubpbkiq7nhck" path="res://textures/log_bark.png" id="1_o2cnv"]
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_v4q5p"]
-data = PackedVector3Array(0, 0.2714, -0.33, 0.1427, 0.1677, 0.33, 0, 0.2714, 0.33, 0, 0.2714, -0.33, 0.1427, 0.1677, -0.33, 0.1427, 0.1677, 0.33, 0.1427, 0.1677, -0.33, 0.0882, 0, 0.33, 0.1427, 0.1677, 0.33, 0.1427, 0.1677, -0.33, 0.0882, 0, -0.33, 0.0882, 0, 0.33, 0.0882, 0, -0.33, -0.0882, 0, 0.33, 0.0882, 0, 0.33, 0.0882, 0, -0.33, -0.0882, 0, -0.33, -0.0882, 0, 0.33, 0.0882, 0, 0.33, 0, 0.2714, 0.33, 0.1427, 0.1677, 0.33, 0, 0.2714, 0.33, -0.0882, 0, 0.33, -0.1427, 0.1677, 0.33, 0, 0.2714, 0.33, 0.0882, 0, 0.33, -0.0882, 0, 0.33, -0.0882, 0, -0.33, -0.1427, 0.1677, 0.33, -0.0882, 0, 0.33, -0.0882, 0, -0.33, -0.1427, 0.1677, -0.33, -0.1427, 0.1677, 0.33, -0.1427, 0.1677, -0.33, 0, 0.2714, 0.33, -0.1427, 0.1677, 0.33, -0.1427, 0.1677, -0.33, 0, 0.2714, -0.33, 0, 0.2714, 0.33, -0.1427, 0.1677, -0.33, 0.1427, 0.1677, -0.33, 0, 0.2714, -0.33, 0.1427, 0.1677, -0.33, -0.0882, 0, -0.33, 0.0882, 0, -0.33, 0.1427, 0.1677, -0.33, -0.1427, 0.1677, -0.33, -0.0882, 0, -0.33)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4qeqh"]
 resource_name = "bark"
 cull_mode = 2
@@ -43,12 +40,15 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_d2qlp")
 
-[node name="log" type="StaticBody3D"]
-script = ExtResource("1_ascnw")
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ula4q"]
+points = PackedVector3Array(-0.138768, 0.170557, -0.314279, 0.145395, 0.183287, 0.335238, 0.13402, 0.140992, 0.309238, 0.145395, 0.183287, -0.335238, 0.0886269, 0.00131362, -0.319708, -0.0894604, 0.00387829, 0.313629, -0.0431639, 0.256659, 0.335238, 0.0301407, 0.267125, -0.335238, -0.0894604, 0.00387829, -0.313629, 0.0886269, 0.00131362, 0.319708, -0.138768, 0.170557, 0.314279, 0.0301407, 0.267125, 0.335238, -0.116497, 0.204247, -0.335238, -0.0431639, 0.256659, -0.335238, -0.116497, 0.204247, 0.335238, -0.133991, 0.140901, -0.303358, -0.133991, 0.140901, 0.303358, -0.0106648, 0.26365, -0.302126, 0.13402, 0.140992, -0.309238, -0.0106648, 0.26365, 0.302126, 0.0082512, 0.265404, 0.306284)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("ConcavePolygonShape3D_v4q5p")
+[node name="log" type="RigidBody3D"]
+script = ExtResource("1_ascnw")
 
 [node name="log2" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_j2r0y")
 skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_ula4q")
