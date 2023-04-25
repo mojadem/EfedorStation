@@ -4,7 +4,7 @@ extends CharacterBody3D
 @export var jump_force : float = 4.0
 @export var sensitivity : float = 0.003
 
-@onready var camera: Camera3D = $Camera3D
+@onready var head: Node3D = $Head
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -16,8 +16,8 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * sensitivity)
-		camera.rotate_x(-event.relative.y * sensitivity)
-		camera.rotation.x = clamp(camera.rotation.x, -PI / 3, PI / 3)
+		head.rotate_x(-event.relative.y * sensitivity)
+		head.rotation.x = clamp(head.rotation.x, -PI / 3, PI / 3)
 
 
 func _process(delta: float) -> void:

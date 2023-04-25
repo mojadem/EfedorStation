@@ -2,7 +2,7 @@ extends Node3D
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-@export var burn_duration: float = 10.0
+@export var burn_duration: float = 90.0
 
 var log_in_area: Log = null
 

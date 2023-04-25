@@ -5,7 +5,7 @@ extends Node3D
 func _ready() -> void:
 	GameEvents.spawn.connect(_on_spawn)
 
-func _on_spawn(scene: PackedScene, position):
+func _on_spawn(scene: PackedScene, position: Vector3):
 	var instance = scene.instantiate()
 	instance.position = position
 	spawned_items.add_child(instance)

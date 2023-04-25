@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cwiry8ohe12lk"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_ipaja"]
-[ext_resource type="Script" path="res://scripts/interaction_ray.gd" id="2_4vooa"]
+[ext_resource type="Script" path="res://scenes/player_interaction.gd" id="2_l5700"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_qb38y"]
 
@@ -18,25 +18,30 @@ mesh = SubResource("CapsuleMesh_qb38y")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_vfnil")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+script = ExtResource("2_l5700")
 
-[node name="InteractionRay" type="RayCast3D" parent="Camera3D"]
+[node name="Camera3D" type="Camera3D" parent="Head"]
+
+[node name="InteractionRay" type="RayCast3D" parent="Head"]
 exclude_parent = false
 target_position = Vector3(0, 0, -2.5)
-script = ExtResource("2_4vooa")
 
-[node name="CarryingMarker" type="Marker3D" parent="Camera3D/InteractionRay"]
+[node name="CarryingMarker" type="Marker3D" parent="Head/InteractionRay"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
 
-[node name="CenterContainer" type="CenterContainer" parent="Camera3D"]
+[node name="CenterContainer" type="CenterContainer" parent="Head"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="Camera3D/CenterContainer"]
+[node name="ColorRect" type="ColorRect" parent="Head/CenterContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 color = Color(1, 1, 1, 0.490196)
+
+[node name="TextureRect" type="TextureRect" parent="Head/CenterContainer"]
+layout_mode = 2
