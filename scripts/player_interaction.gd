@@ -4,6 +4,7 @@ extends Node3D
 @onready var carrying_marker: Marker3D = $InteractionRay/CarryingMarker
 @onready var texture_rect: TextureRect = $CenterContainer/TextureRect
 @onready var color_rect: ColorRect = $CenterContainer/ColorRect
+@onready var audio: AudioStreamPlayer3D = $AudioStreamPlayer3D
 
 @export var pull_power: float = 10.0
 
@@ -20,14 +21,14 @@ var equipable_to_icon_map = {
 }
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if carrying:
 		var a = carrying.global_transform.origin
 		var b = carrying_marker.global_transform.origin
 		carrying.set_linear_velocity((b - a) * pull_power)
 
 
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	var collider = interaction_ray.get_collider()
 	update_crosshair(collider)
 	
@@ -44,7 +45,9 @@ func _input(event: InputEvent) -> void:
 		collider.queue_free()
 	
 	if collider is Interactable:
-		collider.interact(equipped)
+		if collider.interacts_with in equipped:
+			collider.interact()
+			audio.play()
 	
 	if collider is Carryable:
 		carrying = collider

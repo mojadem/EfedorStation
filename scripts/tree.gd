@@ -7,9 +7,8 @@ var stump_tall = preload("res://models/stump_tall.glb")
 var stumps = [stump_short, stump_medium, stump_tall]
 
 
-func interact(equipped):
-	if interacts_with in equipped:
-		queue_free()
-		GameEvents.spawn.emit(log_scene, self.position + Vector3.UP)
-		stumps.shuffle()
-		GameEvents.spawn.emit(stumps.front(), self.position)
+func interact():
+	queue_free()
+	GameEvents.spawn.emit(log_scene, self.position + Vector3.UP)
+	stumps.shuffle()
+	GameEvents.spawn.emit(stumps.front(), self.position)
