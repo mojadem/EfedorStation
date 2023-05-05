@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://b3vobn1w77u0c"]
+
+[ext_resource type="PackedScene" uid="uid://boxovvg380fyg" path="res://models/coin.glb" id="1_yrm5u"]
+[ext_resource type="Script" path="res://scripts/coin.gd" id="2_0b3fb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4tnwe"]
+size = Vector3(0.25, 0.25, 0.25)
+
+[sub_resource type="Animation" id="Animation_ycueh"]
+resource_name = "rotate"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("coin2:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1.5708, 0, 0), Vector3(1.5708, 6.28319, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2wvss"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("coin2:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.5708, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7vv0p"]
+_data = {
+"RESET": SubResource("Animation_2wvss"),
+"rotate": SubResource("Animation_ycueh")
+}
+
+[node name="coin" instance=ExtResource("1_yrm5u")]
+script = ExtResource("2_0b3fb")
+
+[node name="Area3D" type="Area3D" parent="." index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_4tnwe")
+
+[node name="coin2" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, -2.18557e-08, -1, 0, 0.5, -4.37114e-08, 0, 1, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
+libraries = {
+"": SubResource("AnimationLibrary_7vv0p")
+}
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

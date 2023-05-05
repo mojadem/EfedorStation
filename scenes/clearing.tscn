@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwuoepclocqd4"]
+
+[ext_resource type="PackedScene" uid="uid://bmyqt23ec5ko7" path="res://scenes/campfire.tscn" id="1_tm1oj"]
+[ext_resource type="PackedScene" uid="uid://8ccurguecokd" path="res://scenes/axe.tscn" id="2_t88lg"]
+[ext_resource type="PackedScene" uid="uid://b3vobn1w77u0c" path="res://scenes/coin.tscn" id="3_p58eu"]
+
+[node name="Clearing" type="Node3D"]
+
+[node name="Campfire" parent="." instance=ExtResource("1_tm1oj")]
+
+[node name="axe" parent="." instance=ExtResource("2_t88lg")]
+transform = Transform3D(0.811464, -0.33191, -0.481002, 0.419849, 0.903628, 0.0847584, 0.406514, -0.270726, 0.872613, -0.441707, 0.222429, -0.537792)
+
+[node name="coin" parent="." instance=ExtResource("3_p58eu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)

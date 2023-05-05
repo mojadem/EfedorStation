@@ -9,7 +9,7 @@ var log_count: int = 0
 
 
 func _ready() -> void:
-	print(self.name)
+	self.apply_central_impulse(Vector3(randf_range(-1, 1), randf_range(-1, 1), randf_range(-1, 1)) * 3)
 
 
 func _physics_process(_delta: float) -> void:
