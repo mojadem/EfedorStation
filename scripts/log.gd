@@ -5,11 +5,7 @@ class_name Log
 @onready var area_3d: Area3D = $Area3D
 
 var campfire_scene = preload("res://scenes/campfire.tscn")
-var log_count: int = 0
-
-
-func _ready() -> void:
-	self.apply_central_impulse(Vector3(randf_range(-1, 1), randf_range(-1, 1), randf_range(-1, 1)) * 3)
+var log_count := 0
 
 
 func _physics_process(_delta: float) -> void:

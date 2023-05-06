@@ -1,7 +1,9 @@
 extends Node3D
 
 @onready var spawned_items: Node3D = $SpawnedItems
-@onready var label: Label = $Label
+@onready var coin_label: Label = $CoinLabel
+@onready var tree_label: Label = $TreeLabel
+@onready var win_label: Label = $WinLabel
 
 var tree_scene = preload("res://scenes/tree.tscn")
 var foliage_scene = preload("res://scenes/foliage.tscn")
@@ -9,17 +11,20 @@ var clearing_scene = preload("res://scenes/clearing.tscn")
 var player_scene = preload("res://scenes/player.tscn")
 var coin_scene = preload("res://scenes/coin.tscn")
 
-var tree_count := 100
-var foliage_count := 500
-var ground_size := 100.0
 var placements := []
-var coin_count := 5
+var ground_size := 50.0
+var foliage_count := 500
 
+var tree_count := 100
+var trees_cut := 0
+
+var coin_count := 5
 var coins_collected := 0
 
 func _ready() -> void:
 	GameEvents.spawn.connect(_spawn)
 	GameEvents.coin_collected.connect(_on_coin_collected)
+	GameEvents.tree_cut.connect(_on_tree_cut)
 	
 	_init_placements()
 	
@@ -32,19 +37,47 @@ func _ready() -> void:
 	_random_spawn_many(foliage_scene, foliage_count, 1)
 	_random_spawn_many(coin_scene, coin_count - 1, 1) 
 
+
+func _physics_process(_delta: float) -> void:
+	if coins_collected == coin_count and trees_cut == tree_count:
+		win_label.show()
+
+
 func _spawn(scene: PackedScene, spawn_position: Vector3) -> Node:
 	var instance = scene.instantiate()
 	instance.position = spawn_position
 	spawned_items.add_child(instance)
+
+	if instance is Log:
+		instance.apply_central_impulse(Vector3(randf_range(-1, 1), randf_range(-1, 1), randf_range(-1, 1)) * 3)
+
 	return instance
 
 
 func _on_coin_collected():
 	coins_collected += 1
-	label.text = "{coins_collected}/{coin_count}".format(
+
+	if coins_collected == 6:
+		return
+
+	coin_label.text = "{coins_collected}/{coin_count}".format(
 		{"coins_collected": coins_collected, "coin_count": coin_count}
 	)
-	label.show_then_fade()
+	coin_label.show_then_fade()
+
+
+func _on_tree_cut():
+	if trees_cut + 1 == tree_count:
+		_random_spawn(coin_scene, 1)
+		coin_count += 1
+		coin_label.show_then_fade()
+	
+	trees_cut += 1
+	tree_label.text = "{trees_cut}/{tree_count}".format(
+		{"trees_cut": trees_cut, "tree_count": tree_count}
+	)
+	tree_label.show_then_fade()
+	
 
 
 func _init_placements() -> void:

@@ -14,5 +14,5 @@ func interact():
 	
 	stumps.shuffle()
 	GameEvents.spawn.emit(stumps.front(), self.position)
-
+	GameEvents.tree_cut.emit()
 	queue_free()

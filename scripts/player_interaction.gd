@@ -28,11 +28,11 @@ func _physics_process(_delta: float) -> void:
 		carrying.set_linear_velocity((b - a) * pull_power)
 
 
-func _input(_event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	var collider = interaction_ray.get_collider()
 	update_crosshair(collider)
 	
-	if not Input.is_action_just_pressed("interact"):
+	if not event.is_action_released("interact"):
 		return
 	
 	if carrying:
